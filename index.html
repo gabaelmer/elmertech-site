@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elmer Gaba | Network & Unified Communications Specialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -340,6 +341,12 @@
             gap: 1rem;
         }
 
+        @media (max-width: 1024px) {
+            .tech-stack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .tech-item {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -378,6 +385,34 @@
             margin-bottom: 0.5rem;
             position: relative;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+        }
+
+        .cert-badge {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .cert-badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .cert-badge-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 1px;
         }
 
         .tech-name {
@@ -907,6 +942,13 @@
             transform: translateY(0);
         }
     </style>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init("gb1P0rZPJiBHysZwq");
+  })();
+</script>
 </head>
 <body>
     <!-- Grid Background -->
@@ -948,27 +990,105 @@
             <div class="hero-visual">
                 <div class="tech-stack">
                     <div class="tech-item">
-                        <div class="tech-icon">🔒</div>
-                        <div class="tech-name">Fortinet NSE</div>
-                    </div>
-                    <div class="tech-item">
-                        <div class="tech-icon">🌐</div>
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #049FD9, #005A9C);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <rect x="6" y="9" width="12" height="6" rx="1"/>
+                                    <circle cx="9" cy="12" r="1"/>
+                                    <circle cx="12" cy="12" r="1"/>
+                                    <circle cx="15" cy="12" r="1"/>
+                                    <line x1="3" y1="12" x2="6" y2="12" stroke="white" stroke-width="2"/>
+                                    <line x1="18" y1="12" x2="21" y2="12" stroke="white" stroke-width="2"/>
+                                    <line x1="12" y1="15" x2="12" y2="18" stroke="white" stroke-width="2"/>
+                                    <line x1="12" y1="9" x2="12" y2="6" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
                         <div class="tech-name">Cisco CCNA</div>
                     </div>
                     <div class="tech-item">
-                        <div class="tech-icon">📡</div>
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #FF6B35, #FF8C42);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <rect x="4" y="8" width="16" height="8" rx="1"/>
+                                    <rect x="6" y="10" width="2" height="1"/>
+                                    <rect x="6" y="12" width="2" height="1"/>
+                                    <rect x="6" y="14" width="2" height="1"/>
+                                    <rect x="9" y="10" width="2" height="1"/>
+                                    <rect x="9" y="12" width="2" height="1"/>
+                                    <rect x="9" y="14" width="2" height="1"/>
+                                    <rect x="12" y="10" width="2" height="1"/>
+                                    <rect x="12" y="12" width="2" height="1"/>
+                                    <rect x="12" y="14" width="2" height="1"/>
+                                    <rect x="15" y="10" width="2" height="1"/>
+                                    <rect x="15" y="12" width="2" height="1"/>
+                                    <rect x="15" y="14" width="2" height="1"/>
+                                    <line x1="7" y1="6" x2="7" y2="8" stroke="white" stroke-width="1.5"/>
+                                    <line x1="12" y1="6" x2="12" y2="8" stroke="white" stroke-width="1.5"/>
+                                    <line x1="17" y1="6" x2="17" y2="8" stroke="white" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                        </div>
                         <div class="tech-name">Aruba ACSA</div>
                     </div>
                     <div class="tech-item">
-                        <div class="tech-icon">☁️</div>
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #E91E63, #C2185B);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <rect x="4" y="6" width="16" height="3" rx="0.5"/>
+                                    <rect x="4" y="10" width="16" height="3" rx="0.5"/>
+                                    <rect x="4" y="14" width="16" height="3" rx="0.5"/>
+                                    <circle cx="7" cy="7.5" r="0.8"/>
+                                    <circle cx="7" cy="11.5" r="0.8"/>
+                                    <circle cx="7" cy="15.5" r="0.8"/>
+                                    <circle cx="17" cy="7.5" r="0.8"/>
+                                    <circle cx="17" cy="11.5" r="0.8"/>
+                                    <circle cx="17" cy="15.5" r="0.8"/>
+                                </svg>
+                            </div>
+                        </div>
                         <div class="tech-name">Hitachi Data Ops</div>
                     </div>
                     <div class="tech-item">
-                        <div class="tech-icon">📞</div>
-                        <div class="tech-name">Mitel UC</div>
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #003B71, #0052A3);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tech-name">Mitel MiVoice Business</div>
                     </div>
                     <div class="tech-item">
-                        <div class="tech-icon">⚡</div>
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #9C27B0, #7B1FA2);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <circle cx="12" cy="8" r="4"/>
+                                    <path d="M12 14c-4 0-7 2-7 4.5V20h14v-1.5c0-2.5-3-4.5-7-4.5z"/>
+                                    <path d="M18 10h3v2h-3v3h-2v-3h-3v-2h3V7h2v3z" opacity="0.8"/>
+                                    <path d="M20 6c0-2.2-1.8-4-4-4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                    <path d="M4 6c0-2.2 1.8-4 4-4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tech-name">Mitel CX</div>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">
+                            <div class="cert-badge" style="background: linear-gradient(135deg, #FFC107, #FF9800);">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                                    <rect x="9" y="2" width="6" height="20" rx="1" stroke="white" stroke-width="1.5" fill="none"/>
+                                    <line x1="9" y1="6" x2="15" y2="6" stroke="white" stroke-width="1.5"/>
+                                    <line x1="9" y1="18" x2="15" y2="18" stroke="white" stroke-width="1.5"/>
+                                    <circle cx="12" cy="12" r="2.5" stroke="white" stroke-width="1.5" fill="none"/>
+                                    <path d="M12 9.5v-1M12 14.5v1M14.5 12h1M9.5 12h-1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                    <circle cx="7" cy="8" r="1.5"/>
+                                    <circle cx="17" cy="8" r="1.5"/>
+                                    <circle cx="7" cy="16" r="1.5"/>
+                                    <circle cx="17" cy="16" r="1.5"/>
+                                </svg>
+                            </div>
+                        </div>
                         <div class="tech-name">ECT Licensed</div>
                     </div>
                 </div>
@@ -1070,24 +1190,30 @@
             <div class="service-card">
                 <div class="service-icon">☁️</div>
                 <div class="service-title">Data Operations</div>
-                <div class="service-description">Comprehensive data operations, storage, and backup solutions for enterprise environments.</div>
-                <ul class="service-features">
-                    <li>Hitachi data infrastructure</li>
-                    <li>Veeam Backup & Replication</li>
-                    <li>Nakivo Backup & Replication</li>
-                    <li>Storage & disaster recovery</li>
-                </ul>
+<div class="service-description">
+    Comprehensive data operations, storage, backup, and virtualization solutions for enterprise and homelab environments.
+</div>
+<ul class="service-features">
+    <li>Hitachi data infrastructure</li>
+    <li>Veeam Backup & Replication</li>
+    <li>Nakivo Backup & Replication</li>
+    <li>Unraid storage, virtualization & Docker</li>
+    <li>Storage & disaster recovery</li>
+</ul>
             </div>
             <div class="service-card">
                 <div class="service-icon">💻</div>
                 <div class="service-title">Virtualization Services</div>
-                <div class="service-description">Enterprise virtualization platforms for efficient resource utilization and infrastructure management.</div>
-                <ul class="service-features">
-                    <li>VMware vSphere deployment</li>
-                    <li>Proxmox VE implementation</li>
-                    <li>H3C CAS & Hyper-V solutions</li>
-                    <li>Scale Computing HyperCore</li>
-                </ul>
+<div class="service-description">
+    Enterprise virtualization and container platforms for efficient resource utilization and infrastructure management.
+</div>
+<ul class="service-features">
+    <li>VMware vSphere deployment</li>
+    <li>Proxmox VE implementation</li>
+    <li>H3C CAS & Hyper-V solutions</li>
+    <li>Scale Computing HyperCore</li>
+    <li>Unraid virtualization & Docker workloads</li>
+</ul>
             </div>
             <div class="service-card">
                 <div class="service-icon">🔧</div>
@@ -1189,7 +1315,7 @@
                     </div>
                 </div>
                 <div class="social-links">
-                    <a href="https://linkedin.com/in/elmer-gaba" class="social-link" target="_blank" title="LinkedIn">in</a>
+                    <a href="https://www.linkedin.com/in/elmer-gaba-3486481ab" class="social-link" target="_blank" title="LinkedIn">in</a>
                     <a href="mailto:gabaelmer@gmail.com" class="social-link" title="Email">✉</a>
                 </div>
             </div>
@@ -1276,33 +1402,40 @@
             });
         });
 
-        // Contact Form Handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                subject: formData.get('subject'),
-                message: formData.get('message')
-            };
-            
-            // Show success message
-            const successMessage = document.getElementById('successMessage');
-            successMessage.classList.add('show');
-            
-            // Reset form
-            this.reset();
-            
-            // Hide success message after 3 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 3000);
-            
-            // Log form data (in production, send to backend)
-            console.log('Form submitted:', data);
-        });
+        // Contact Form Handling (EmailJS)
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const successMessage = document.getElementById('successMessage');
+    const submitButton = this.querySelector('button[type="submit"]');
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+
+    emailjs.send(
+        "service_qw5clnj",
+        "template_qha3yp3",
+        {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        }
+    ).then(() => {
+        successMessage.classList.add('show');
+        document.getElementById('contactForm').reset();
+
+        setTimeout(() => {
+            successMessage.classList.remove('show');
+        }, 3000);
+    }).catch((error) => {
+        alert("Failed to send message. Please try again.");
+        console.error("EmailJS Error:", error);
+    }).finally(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send Message →";
+    });
+});
 
         // Scroll animations
         const observerOptions = {
