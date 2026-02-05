@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elmer Gaba | Network & Unified Communications Specialist</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"
@@ -157,24 +159,21 @@
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: relative;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            transition: all 0.3s ease;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 30px;
-            height: 3px;
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
+        .logo img {
+            height: 100%;
+            width: auto;
+            filter: drop-shadow(0 0 10px var(--primary-glow));
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
         }
 
         nav {
@@ -1119,7 +1118,9 @@
 
     <!-- Header -->
     <header>
-        <div class="logo">EG</div>
+        <div class="logo">
+            <img src="logo.svg" alt="EG Global Logo">
+        </div>
         <nav id="nav">
             <a href="#home">Home</a>
             <a href="#about">About</a>
