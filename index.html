@@ -55,6 +55,7 @@
 
         /* Animated Grid Background */
         .grid-background {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -67,6 +68,17 @@
             pointer-events: none;
             z-index: 0;
             animation: gridPulse 20s ease-in-out infinite;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background: var(--bg-main);
         }
 
         @keyframes gridPulse {
@@ -1097,6 +1109,7 @@
 
 <body>
     <!-- Grid Background -->
+    <canvas id="bg-canvas"></canvas>
     <div class="grid-background"></div>
     <div class="circuit-accent"></div>
     <div class="circuit-accent-2"></div>
@@ -1754,6 +1767,181 @@
         // Observe elements for animation
         document.querySelectorAll('.service-card, .timeline-item').forEach(el => {
             observer.observe(el);
+        });
+
+        // ── CIRCUIT & AI BACKGROUND ANIMATION ──
+        class CircuitBackground {
+            constructor() {
+                this.canvas = document.getElementById('bg-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.nodes = [];
+                this.traces = [];
+                this.maxNodes = 80;
+                this.maxTraces = 20;
+                this.mouse = { x: null, y: null };
+
+                this.init();
+                this.animate();
+
+                window.addEventListener('resize', () => this.init());
+                window.addEventListener('mousemove', (e) => {
+                    this.mouse.x = e.x;
+                    this.mouse.y = e.y;
+                });
+            }
+
+            init() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.nodes = [];
+                this.traces = [];
+
+                // Create AI Neural Nodes
+                for (let i = 0; i < this.maxNodes; i++) {
+                    this.nodes.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 1.5 + 1,
+                        originalRadius: 0
+                    });
+                    this.nodes[i].originalRadius = this.nodes[i].radius;
+                }
+
+                // Create Circuit Traces
+                for (let i = 0; i < this.maxTraces; i++) {
+                    this.traces.push(this.createTrace());
+                }
+            }
+
+            createTrace() {
+                const x = Math.random() * this.canvas.width;
+                const y = Math.random() * this.canvas.height;
+                return {
+                    points: [{ x, y }],
+                    length: 0,
+                    maxLength: 100 + Math.random() * 300,
+                    direction: Math.floor(Math.random() * 4), // 0:R, 1:L, 2:U, 3:D
+                    speed: 1 + Math.random() * 1.5,
+                    active: true,
+                    opacity: 0.1 + Math.random() * 0.4
+                };
+            }
+
+            draw() {
+                const styles = getComputedStyle(document.documentElement);
+                const primary = styles.getPropertyValue('--primary').trim();
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Draw Neural Connections
+                this.ctx.lineWidth = 0.5;
+                for (let i = 0; i < this.nodes.length; i++) {
+                    for (let j = i + 1; j < this.nodes.length; j++) {
+                        const dx = this.nodes[i].x - this.nodes[j].x;
+                        const dy = this.nodes[i].y - this.nodes[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 150) {
+                            this.ctx.strokeStyle = isLight ? `rgba(0, 179, 104, ${0.15 * (1 - dist / 150)})` : `rgba(0, 255, 136, ${0.1 * (1 - dist / 150)})`;
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.nodes[i].x, this.nodes[i].y);
+                            this.ctx.lineTo(this.nodes[j].x, this.nodes[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw Nodes
+                this.nodes.forEach(node => {
+                    this.ctx.fillStyle = primary;
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Update position
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    // Interaction with mouse
+                    if (this.mouse.x) {
+                        const mdx = node.x - this.mouse.x;
+                        const mdy = node.y - this.mouse.y;
+                        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                        if (mdist < 120) {
+                            node.radius = node.originalRadius * 2.5;
+                            // Subtle glow on hover
+                            this.ctx.shadowBlur = 10;
+                            this.ctx.shadowColor = primary;
+                        } else {
+                            node.radius = node.originalRadius;
+                            this.ctx.shadowBlur = 0;
+                        }
+                    }
+
+                    // Bounds check
+                    if (node.x < 0 || node.x > this.canvas.width) node.vx *= -1;
+                    if (node.y < 0 || node.y > this.canvas.height) node.vy *= -1;
+                });
+
+                // Reset shadow for traces
+                this.ctx.shadowBlur = 0;
+
+                // Draw Circuit Traces
+                this.traces.forEach((trace, index) => {
+                    if (!trace.active) {
+                        this.traces[index] = this.createTrace();
+                        return;
+                    }
+
+                    this.ctx.strokeStyle = isLight ? `rgba(0, 179, 104, ${trace.opacity})` : `rgba(0, 255, 136, ${trace.opacity})`;
+                    this.ctx.lineWidth = 1;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(trace.points[0].x, trace.points[0].y);
+                    trace.points.forEach(p => this.ctx.lineTo(p.x, p.y));
+                    this.ctx.stroke();
+
+                    // Draw head glow
+                    const lastPoint = trace.points[trace.points.length - 1];
+                    this.ctx.fillStyle = primary;
+                    this.ctx.beginPath();
+                    this.ctx.arc(lastPoint.x, lastPoint.y, 1.5, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Animate head
+                    if (trace.direction === 0) lastPoint.x += trace.speed;
+                    else if (trace.direction === 1) lastPoint.x -= trace.speed;
+                    else if (trace.direction === 2) lastPoint.y -= trace.speed;
+                    else if (trace.direction === 3) lastPoint.y += trace.speed;
+
+                    trace.length += trace.speed;
+
+                    // Random turn
+                    if (trace.length < trace.maxLength && Math.random() < 0.03) {
+                        const oldDir = trace.direction;
+                        // Avoid 180 degree turns
+                        while (trace.direction === oldDir || (trace.direction === 0 && oldDir === 1) || (trace.direction === 1 && oldDir === 0) || (trace.direction === 2 && oldDir === 3) || (trace.direction === 3 && oldDir === 2)) {
+                            trace.direction = Math.floor(Math.random() * 4);
+                        }
+                        trace.points.push({ x: lastPoint.x, y: lastPoint.y });
+                    }
+
+                    if (trace.length >= trace.maxLength || lastPoint.x < 0 || lastPoint.x > this.canvas.width || lastPoint.y < 0 || lastPoint.y > this.canvas.height) {
+                        trace.active = false;
+                    }
+                });
+            }
+
+            animate() {
+                this.draw();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new CircuitBackground();
         });
     </script>
 </body>
